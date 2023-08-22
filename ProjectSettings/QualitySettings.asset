@@ -9,7 +9,7 @@ QualitySettings:
   - serializedVersion: 3
     name: High Fidelity
     pixelLightCount: 1
-    shadows: 2
+    shadows: 0
     shadowResolution: 1
     shadowProjection: 1
     shadowCascades: 2

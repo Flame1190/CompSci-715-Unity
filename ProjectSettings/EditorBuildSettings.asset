@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Scenes/Control - Portals.unity
+    guid: f09a63836427f994eb8343ebde0c7796
+  - enabled: 0
     path: Assets/PortalsVR/Demo/Scenes/Demo.unity
     guid: 2d2fe38a1dbf02343ae07435c9dacd1b
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Control - Prototype.unity
     guid: 34462363866e2b84dabffd06802ed196
   m_configObjects:
