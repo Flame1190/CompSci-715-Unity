@@ -9,9 +9,9 @@ QualitySettings:
   - serializedVersion: 3
     name: High Fidelity
     pixelLightCount: 1
-    shadows: 0
+    shadows: 1
     shadowResolution: 1
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 2
     shadowDistance: 40
     shadowNearPlaneOffset: 3
