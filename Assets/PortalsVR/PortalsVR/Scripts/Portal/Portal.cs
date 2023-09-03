@@ -58,6 +58,22 @@ namespace PortalsVR
                 //linkedPortal.portalInfo[eye].screen.material.SetTextureScale("_MainTex", new Vector2(-1, -1000));
                 print(linkedPortal.portalInfo[eye].screen.material.GetTextureScale("_MainTex"));
             }
+
+            foreach (KeyValuePair<Camera.StereoscopicEye, PortalInfo> info in portalInfo)
+            {
+                if (info.Key == Camera.StereoscopicEye.Left && info.Value.eye == null)
+                {
+                    info.Value.eye = PlayerReferences.Instance.LeftEye;
+                    info.Value.alias = PlayerReferences.Instance.LeftAlias;
+
+                }
+                else if (info.Key == Camera.StereoscopicEye.Right && info.Value.eye == null)
+                {
+                    info.Value.eye = PlayerReferences.Instance.RightEye;
+                    info.Value.alias = PlayerReferences.Instance.RightAlias;
+
+                }
+            }
         }
         private void LateUpdate()
         {
