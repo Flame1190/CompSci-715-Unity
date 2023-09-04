@@ -59,22 +59,9 @@ namespace PortalsVR
                 print(linkedPortal.portalInfo[eye].screen.material.GetTextureScale("_MainTex"));
             }
 
-            foreach (KeyValuePair<Camera.StereoscopicEye, PortalInfo> info in portalInfo)
-            {
-                if (info.Key == Camera.StereoscopicEye.Left && info.Value.eye == null)
-                {
-                    info.Value.eye = PlayerReferences.Instance.LeftEye;
-                    info.Value.alias = PlayerReferences.Instance.LeftAlias;
-
-                }
-                else if (info.Key == Camera.StereoscopicEye.Right && info.Value.eye == null)
-                {
-                    info.Value.eye = PlayerReferences.Instance.RightEye;
-                    info.Value.alias = PlayerReferences.Instance.RightAlias;
-
-                }
-            }
+            
         }
+      
         private void LateUpdate()
         {
             HandleTravellers();
@@ -109,6 +96,28 @@ namespace PortalsVR
 
         private void OnEnable()
         {
+            if (PlayerReferences.Instance == null)
+            {
+                PlayerReferences.Instance = GameObject.FindObjectOfType<PlayerReferences>();
+            }
+            foreach (KeyValuePair<Camera.StereoscopicEye, PortalInfo> info in portalInfo)
+            {
+                if (info.Key == Camera.StereoscopicEye.Left && info.Value.eye == null)
+                {
+                    print("should work");
+                    print(info.Value.eye == null);
+                    print(PlayerReferences.Instance.LeftEye);
+                    info.Value.eye = PlayerReferences.Instance.LeftEye;
+                    info.Value.alias = PlayerReferences.Instance.LeftAlias;
+
+                }
+                else if (info.Key == Camera.StereoscopicEye.Right && info.Value.eye == null)
+                {
+                    info.Value.eye = PlayerReferences.Instance.RightEye;
+                    info.Value.alias = PlayerReferences.Instance.RightAlias;
+
+                }
+            }
             portalInfo[Camera.StereoscopicEye.Left].eye.Portals.Add(this);
             portalInfo[Camera.StereoscopicEye.Right].eye.Portals.Add(this);
         }
