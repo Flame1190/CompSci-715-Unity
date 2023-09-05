@@ -51,12 +51,11 @@ namespace PortalsVR
             {
                 portalInfo[eye].screenMeshFilter = portalInfo[eye].screen.GetComponent<MeshFilter>();
                 portalInfo[eye].screen.material.SetInt("displayMask", 1);
-                portalInfo[eye].viewTexture = new RenderTexture(Screen.width, Screen.height, 24);
+                portalInfo[eye].viewTexture = new RenderTexture(Screen.width*2, Screen.height*2, 24);
                 portalInfo[eye].camera.targetTexture = portalInfo[eye].viewTexture;
 
                 linkedPortal.portalInfo[eye].screen.material.SetTexture("_MainTex", portalInfo[eye].viewTexture);
                 //linkedPortal.portalInfo[eye].screen.material.SetTextureScale("_MainTex", new Vector2(-1, -1000));
-                print(linkedPortal.portalInfo[eye].screen.material.GetTextureScale("_MainTex"));
             }
 
             
@@ -104,8 +103,7 @@ namespace PortalsVR
             {
                 if (info.Key == Camera.StereoscopicEye.Left && info.Value.eye == null)
                 {
-                    print("should work");
-                    print(info.Value.eye == null);
+                
                     print(PlayerReferences.Instance.LeftEye);
                     info.Value.eye = PlayerReferences.Instance.LeftEye;
                     info.Value.alias = PlayerReferences.Instance.LeftAlias;
