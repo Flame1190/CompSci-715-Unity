@@ -47,6 +47,18 @@ public class SaveAndLoad
 
             Debug.Log("Saved data for ID: " + id);
         }
+
+        try
+        {
+            // Create or overwrite the .txt file and write the strings to it
+            File.WriteAllLines(Application.persistentDataPath + "/" + id + ".txt", data.GetStringArray());
+
+            Debug.Log("Wrote data to text file for ID: " + id);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error writing to text file: " + e.Message);
+        }
     }
 }
 
@@ -71,6 +83,17 @@ public class LogData
 
             _rotation = new float[4] { rotation.x, rotation.y, rotation.z, rotation.w };
         }
+
+        public override string ToString()
+        {
+            string newString = "";
+
+            newString += _time + ",";
+            newString += _position[0] + "," + _position[1] + "," + _position[2] + ",";
+            newString += _rotation[0] + "," + _rotation[1] + "," + _rotation[2] + "," + _rotation[3];
+
+            return newString;
+        }
     }
 
     List<MotionInfo> _motionInfos = new List<MotionInfo>();
@@ -79,5 +102,17 @@ public class LogData
     public void AddMotionInfo(float time, Vector3 position, Quaternion rotation)
     {
         _motionInfos.Add(new MotionInfo(time, position, rotation));
+    }
+
+    public string[] GetStringArray()
+    {
+        List<string> stringList = new List<string>();
+
+        foreach (MotionInfo motionInfo in _motionInfos)
+        {
+            stringList.Add(motionInfo.ToString());
+        }
+
+        return stringList.ToArray();
     }
 }

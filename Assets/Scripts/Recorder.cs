@@ -32,22 +32,22 @@ public class Recorder : MonoBehaviour
             data.AddMotionInfo(_time, _target.position, _target.rotation);
         }
 
-        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        if (OVRInput.GetDown(OVRInput.RawButton.X) || Input.GetKeyDown(KeyCode.X))
         {
             ToggleCanvas();
         }
 
         if (_canvas.activeInHierarchy)
         {
-            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            if (OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.A))
             {
                 AddToID(-1);
             }
-            if (OVRInput.GetDown(OVRInput.RawButton.B))
+            if (OVRInput.GetDown(OVRInput.RawButton.B) || Input.GetKeyDown(KeyCode.B))
             {
                 AddToID(1);
             }
-            if (OVRInput.GetDown(OVRInput.RawButton.Y) && _time != 0 && !_saved)
+            if ((OVRInput.GetDown(OVRInput.RawButton.Y) || Input.GetKeyDown(KeyCode.Y)) && _time != 0 && !_saved)
             {
                 SaveData(true);
             }
