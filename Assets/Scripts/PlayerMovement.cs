@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System;
 
 public class PlayerMovement : MonoBehaviour
@@ -130,6 +131,8 @@ public class PlayerMovement : MonoBehaviour
     private bool ReadyToSnapTurn;
 
     private bool playerControllerEnabled = false;
+
+    public Vector2 inputLeftAxis;
 
     void Start()
     {
@@ -370,7 +373,8 @@ public class PlayerMovement : MonoBehaviour
             moveInfluence *= 1.0f + OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 #endif
 
-            Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+            //Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+            Vector2 primaryAxis = inputLeftAxis;
 
             // If speed quantization is enabled, adjust the input to the number of fixed speed steps.
             if (FixedSpeedSteps > 0)
@@ -485,6 +489,16 @@ public class PlayerMovement : MonoBehaviour
         Vector3 offset = _centerOffset.TransformPoint(localOffset) - _centerOffset.transform.position;
 
         return offset;
+    }
+
+    public void OnLeftAxis(InputAction.CallbackContext callback)
+    {
+        inputLeftAxis = callback.ReadValue<Vector2>();
+    }
+
+    public void OnX(InputAction.CallbackContext callback)
+    {
+        Debug.LogError("X");
     }
 }
 
