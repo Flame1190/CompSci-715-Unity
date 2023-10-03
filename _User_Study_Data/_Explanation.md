@@ -25,7 +25,7 @@ The following list contains the room-grid-position of the center of each room:
 - "Clocks"          ,  -1,  3
 - "Signs"           ,   0,  3
 - "Paintings"       ,   1,  3
-- "Volcano"         ,  -1,  4 
+- "Volcano"         ,  -1,  4
 - "Aquarium"        ,   1,  4
 - "Giant Ladybug"   ,  -1,  5
 - "Sundial"         ,   0,  5
