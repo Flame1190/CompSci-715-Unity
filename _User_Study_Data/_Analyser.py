@@ -1,3 +1,6 @@
+import math
+import numpy as np
+
 ###########################################################################
 
 #region Extracting Data
@@ -44,6 +47,21 @@ def in_room(x, z, rooms_info, portals = False):
     print("ERROR: Player not in any room bounds!")
     return ""
 
+def angle(q1, q2, degrees = True):
+
+    # Inspired code from:
+    # https://forum.unity.com/threads/quaternion-angle-implementation.572632/
+
+    quaternion1 = np.array([q1[3], q1[0], q1[1], q1[2]])
+    quaternion2 = np.array([q2[3], q2[0], q2[1], q2[2]])
+
+    dot_product = np.dot(quaternion1, quaternion2)
+
+    angle_radians = np.arccos(dot_product) * 2
+    angle_degrees = np.degrees(angle_radians)
+
+    return angle_degrees if degrees else angle_radians
+
 class UserInfo:
     def __init__(self):
         self.data = {}
@@ -52,6 +70,8 @@ class UserInfo:
 
         self.data["path"] = {}
 
+        self.data["poststudy"] = {}
+
     def infer_path_info(self, raw_data, rooms_info):
         self.data["path"]["visited"] = {}
         self.data["path"]["unvisited"] = {}
@@ -59,11 +79,13 @@ class UserInfo:
         raw_lines = raw_data.split("\n")
 
         last_time = 0
+        last_position = ()
+        last_rotation = ()
         last_room = ""
         room_visits = 0
 
-        for line in raw_lines:
-            line_info = line.split(",")
+        for i in range(len(raw_lines)):
+            line_info = raw_lines[i].split(",")
 
             time = float(line_info[0])
             position = (float(line_info[1]), float(line_info[2]), float(line_info[3]))
@@ -75,15 +97,24 @@ class UserInfo:
                 self.data["path"]["visited"][current_room] = {}
                 self.data["path"]["visited"][current_room]["order"] = len(self.data["path"]["visited"]) - 1
                 self.data["path"]["visited"][current_room]["sequence"] = []
+                self.data["path"]["visited"][current_room]["total_time"] = 0
+                self.data["path"]["visited"][current_room]["total_distance"] = 0
+                self.data["path"]["visited"][current_room]["total_turn"] = 0
 
             self.data["path"]["visited"][current_room]
 
             if current_room != last_room:
                 self.data["path"]["visited"][current_room]["sequence"].append(room_visits)
                 room_visits += 1
+            elif i > 0:
+                self.data["path"]["visited"][current_room]["total_time"] += time - last_time
+                self.data["path"]["visited"][current_room]["total_distance"] += math.dist(position, last_position)
+                self.data["path"]["visited"][current_room]["total_turn"] += angle(rotation, last_rotation)
 
-            last_room = current_room
             last_time = time
+            last_position = position
+            last_rotation = rotation
+            last_room = current_room
 
         self.data["path"]["total_time"] = last_time
 
@@ -122,6 +153,8 @@ def get_user_infos(count, rooms_info):
 def main():
     rooms_info = get_rooms_info()
     user_infos = get_user_infos(1, rooms_info)
+
+    print(user_infos[0].data)
 
     print("Done")
 
