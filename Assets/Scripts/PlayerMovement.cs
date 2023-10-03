@@ -201,6 +201,8 @@ public class PlayerMovement : MonoBehaviour
                 return;
         }
 
+      
+
         //todo: enable for Unity Input System
 #if ENABLE_LEGACY_INPUT_MANAGER
 
@@ -373,8 +375,8 @@ public class PlayerMovement : MonoBehaviour
             moveInfluence *= 1.0f + OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 #endif
 
-            //Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-            Vector2 primaryAxis = inputLeftAxis;
+            Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+            //Vector2 primaryAxis = inputLeftAxis;
 
             // If speed quantization is enabled, adjust the input to the number of fixed speed steps.
             if (FixedSpeedSteps > 0)
@@ -494,6 +496,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnLeftAxis(InputAction.CallbackContext callback)
     {
         inputLeftAxis = callback.ReadValue<Vector2>();
+
     }
 
     public void OnX(InputAction.CallbackContext callback)
