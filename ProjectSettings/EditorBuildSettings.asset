@@ -14,12 +14,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Control - Prototype.unity
     guid: 34462363866e2b84dabffd06802ed196
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/DomTest.unity
     guid: a69dbc6af14d90c4d8f1eb16baa16af7
-  - enabled: 1
-    path: Assets/_Scenes/Prototyping - 3D models.unity
-    guid: 8c17464abd96ceb4dadb8c7fdefa5597
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 00f9a5b66f528f74dba38c204c6bb0c3,
       type: 2}
