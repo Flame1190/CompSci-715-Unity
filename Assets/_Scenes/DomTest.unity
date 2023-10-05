@@ -1413,6 +1413,12 @@ MonoBehaviour:
   m_DefaultActionMap: NewMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!4 &1894982181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8703736979419474045, guid: 3877147386f9f5a40ad606b56e9e85ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 184290758150064940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &184290758150064940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1506,12 +1512,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1894982180}
   m_SourcePrefab: {fileID: 100100000, guid: 3877147386f9f5a40ad606b56e9e85ca, type: 3}
---- !u!4 &184290758150064941 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7091655646336623430, guid: 3877147386f9f5a40ad606b56e9e85ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 184290758150064940}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2012902354881559786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1524,7 +1524,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _target
       value: 
-      objectReference: {fileID: 184290758150064941}
+      objectReference: {fileID: 1894982181}
     - target: {fileID: 3604486321939698801, guid: 41c644ea4b610eb4fa0213e794d35046,
         type: 3}
       propertyPath: m_RootOrder

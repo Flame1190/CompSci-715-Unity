@@ -17,10 +17,13 @@ public class Recorder : MonoBehaviour
     [SerializeField] Transform _target;
     [SerializeField] GameObject _canvas;
     [SerializeField] TMP_Text _text;
+    AudioSource _audioSource;
 
     private void Awake()
     {
         Main = this;
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -79,6 +82,13 @@ public class Recorder : MonoBehaviour
             _recording = true;
 
             _text.text = "Recording...";
+
+            if (_id < 0)
+            {
+                _audioSource.pitch = 0.5f;
+            }
+
+            _audioSource.Play();
         }
     }
 
@@ -89,6 +99,8 @@ public class Recorder : MonoBehaviour
             _recording = false;
 
             SaveData();
+
+            _audioSource.Play();
         }
     }
 
