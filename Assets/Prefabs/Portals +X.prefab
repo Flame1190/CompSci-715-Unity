@@ -24,7 +24,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102445518718376134}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,6 +34,7 @@ Transform:
   - {fileID: 311388423347375483}
   - {fileID: 5957393826210045848}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-8299757261188386666
 MonoBehaviour:
@@ -85,6 +85,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986199664600174407, guid: 4fb0413a13345c441bf55c0ff42bc521,
+        type: 3}
+      propertyPath: far clip plane
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1986199664600174407, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
@@ -155,6 +160,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984972881149567757, guid: 4fb0413a13345c441bf55c0ff42bc521,
+        type: 3}
+      propertyPath: far clip plane
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6984972881149567757, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
@@ -306,7 +316,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9c6c6ac75058e554ea7fe411fc6ce770,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.95
+      value: 300.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9c6c6ac75058e554ea7fe411fc6ce770,
         type: 3}
@@ -366,7 +376,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9c6c6ac75058e554ea7fe411fc6ce770,
         type: 3}
       propertyPath: m_Name
-      value: Frame 1
+      value: Frame 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9c6c6ac75058e554ea7fe411fc6ce770,
         type: 3}
@@ -416,6 +426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986199664600174407, guid: 4fb0413a13345c441bf55c0ff42bc521,
+        type: 3}
+      propertyPath: far clip plane
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1986199664600174407, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
@@ -479,6 +494,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6984972881149567757, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
+      propertyPath: far clip plane
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984972881149567757, guid: 4fb0413a13345c441bf55c0ff42bc521,
+        type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 1048375
       objectReference: {fileID: 0}
@@ -495,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 7135572071750201786, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.95
+      value: 300.95
       objectReference: {fileID: 0}
     - target: {fileID: 7135572071750201786, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}

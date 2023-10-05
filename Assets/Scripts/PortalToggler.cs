@@ -8,7 +8,7 @@ public class PortalToggler : MonoBehaviour
 
     [SerializeField] GameObject[] _portals;
 
-    static Vector2 _otherOffsetScale = new Vector2(3, 6) * 1f;
+    static Vector2 _otherOffsetScale = new Vector2(3, 6) * 100f;
     [SerializeField] Vector2 _otherRoomDirection;
 
     private void FixedUpdate()
