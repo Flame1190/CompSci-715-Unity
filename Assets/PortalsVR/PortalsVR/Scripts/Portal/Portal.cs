@@ -27,6 +27,9 @@ namespace PortalsVR
 
         private Material firstRecursionMat;
         private List<PortalTraveller> trackedTravellers;
+
+        public bool doNotRender;
+
         #endregion
 
         #region Properties
@@ -127,7 +130,11 @@ namespace PortalsVR
 
         public void Render(Camera.StereoscopicEye eye)
         {
-            if (!CameraUtility.VisibleFromCamera(linkedPortal.portalInfo[eye].screen, portalInfo[eye].eye.Camera) || !IsActive)
+            if (doNotRender)
+            {
+                print(this);
+            }
+            if (!CameraUtility.VisibleFromCamera(linkedPortal.portalInfo[eye].screen, portalInfo[eye].eye.Camera) || !IsActive || doNotRender)
             {
                 return;
             }
