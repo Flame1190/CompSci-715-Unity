@@ -44,7 +44,7 @@ def in_room(x, z, rooms_info, portals = False):
 
         if abs(x - room_x) < 3/2 and abs(z - room_z) < 6/2:
             return room_name
-    print("ERROR: Player not in any room bounds!")
+    print("ERROR: Player not in any room bounds at x=" + str(x) + ", z=" + str(z))
     return ""
 
 def angle(q1, q2, degrees = True):
@@ -55,7 +55,7 @@ def angle(q1, q2, degrees = True):
     quaternion1 = np.array([q1[3], q1[0], q1[1], q1[2]])
     quaternion2 = np.array([q2[3], q2[0], q2[1], q2[2]])
 
-    dot_product = np.dot(quaternion1, quaternion2)
+    dot_product = min(np.dot(quaternion1, quaternion2), 1)
 
     angle_radians = np.arccos(dot_product) * 2
     angle_degrees = np.degrees(angle_radians)
@@ -84,7 +84,7 @@ class UserInfo:
         last_room = ""
         room_visits = 0
 
-        for i in range(len(raw_lines)):
+        for i in range(len(raw_lines) - 1):
             line_info = raw_lines[i].split(",")
 
             time = float(line_info[0])
