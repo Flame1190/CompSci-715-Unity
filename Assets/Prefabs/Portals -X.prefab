@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102445518718376134}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +35,6 @@ Transform:
   - {fileID: 311388423347375483}
   - {fileID: 5957393826210045848}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3573168749974763745
 MonoBehaviour:
@@ -94,7 +94,7 @@ PrefabInstance:
     - target: {fileID: 1986199664600174407, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1048375
+      value: 2096951
       objectReference: {fileID: 0}
     - target: {fileID: 2311086940435636909, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
@@ -169,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 6984972881149567757, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1048375
+      value: 2096951
       objectReference: {fileID: 0}
     - target: {fileID: 6984972881149567759, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
@@ -435,7 +435,7 @@ PrefabInstance:
     - target: {fileID: 1986199664600174407, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1048375
+      value: 2096951
       objectReference: {fileID: 0}
     - target: {fileID: 2311086940435636909, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
@@ -500,7 +500,7 @@ PrefabInstance:
     - target: {fileID: 6984972881149567757, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1048375
+      value: 2096951
       objectReference: {fileID: 0}
     - target: {fileID: 6984972881149567759, guid: 4fb0413a13345c441bf55c0ff42bc521,
         type: 3}
