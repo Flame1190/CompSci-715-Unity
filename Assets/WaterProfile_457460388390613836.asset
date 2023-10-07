@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004ffb8c9b4e90d438d35887f7b002e4, type: 3}
   m_Name: WaterProfile_457460388390613836
   m_EditorClassIdentifier: 
-  lightingModel: 0
+  lightingModel: 2
   useFlatLighting: 1
   renderQueueIndex: 0
   color: {r: 0, g: 0.8, b: 1, a: 0.5}
