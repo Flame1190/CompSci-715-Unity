@@ -18,6 +18,7 @@ public class Recorder : MonoBehaviour
     [SerializeField] GameObject _canvas;
     [SerializeField] TMP_Text _text;
     AudioSource _audioSource;
+    [SerializeField] AudioClip _failedAudioClip;
 
     private void Awake()
     {
@@ -62,11 +63,15 @@ public class Recorder : MonoBehaviour
 
     void AddToID(int add)
     {
-        if (!_saved)
+        if (!_saved && !_recording)
         {
             _id += add;
 
             _text.text = "ID: " + _id;
+        }
+        else
+        {
+            _text.text = "ID: " + _id + "\n(Failed change)";
         }
     }
 
@@ -85,10 +90,12 @@ public class Recorder : MonoBehaviour
 
             if (_id < 0)
             {
-                _audioSource.pitch = 0.5f;
+                _audioSource.PlayOneShot(_failedAudioClip);
             }
-
-            _audioSource.Play();
+            else
+            {
+                _audioSource.Play();
+            }
         }
     }
 
