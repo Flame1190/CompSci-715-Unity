@@ -130,11 +130,11 @@ namespace PortalsVR
 
         public void Render(Camera.StereoscopicEye eye)
         {
-            if (doNotRender)
-            {
-                print(this);
-            }
-            if (!CameraUtility.VisibleFromCamera(linkedPortal.portalInfo[eye].screen, portalInfo[eye].eye.Camera) || !IsActive || doNotRender)
+            //if (doNotRender)
+            //{
+            //    print(this);
+            //}
+            if (!CameraUtility.VisibleFromCamera(linkedPortal.portalInfo[eye].screen, portalInfo[eye].eye.Camera) || !IsActive)// || doNotRender)
             {
                 return;
             }
