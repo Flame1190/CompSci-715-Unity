@@ -22,8 +22,8 @@ public class Recenter : MonoBehaviour
         if (leftIndex && !_prevLeftIndex) transform.Rotate(Vector3.up, -90);
         if (rightIndex && !_prevRightIndex) transform.Rotate(Vector3.up, 90);
 
-        if (leftGrip) transform.Rotate(Vector3.up, _slowRotate * Time.deltaTime);
-        if (rightGrip) transform.Rotate(Vector3.up, -_slowRotate * Time.deltaTime);
+        if (leftGrip) transform.Rotate(Vector3.up, -_slowRotate * Time.deltaTime);
+        if (rightGrip) transform.Rotate(Vector3.up, _slowRotate * Time.deltaTime);
 
         _prevLeftIndex = leftIndex;
         _prevRightIndex = rightIndex;
