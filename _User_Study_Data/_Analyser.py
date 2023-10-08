@@ -91,7 +91,9 @@ class UserInfo:
             position = (float(line_info[1]), float(line_info[2]), float(line_info[3]))
             rotation = (float(line_info[4]), float(line_info[5]), float(line_info[6]), float(line_info[7]))
 
-            current_room = in_room(position[0], position[2], rooms_info)
+            portal_condition = position[2] > 500
+
+            current_room = in_room(position[0], position[2], rooms_info, portal_condition)
 
             if current_room not in self.data["path"]["visited"]:
                 self.data["path"]["visited"][current_room] = {}
@@ -154,7 +156,7 @@ def main():
     rooms_info = get_rooms_info()
     user_infos = get_user_infos(1, rooms_info)
 
-    print(user_infos[0].data)
+    print(user_infos[1].data)
 
     print("Done")
 
