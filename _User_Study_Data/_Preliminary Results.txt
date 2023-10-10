@@ -1,0 +1,20 @@
+Currently, all comparisons between conditions are done with the Wilcoxon (Mann-Whitney-U) test due to the small amount of data. Only path data is being analysed as of now, however prestudy (baseline memory test), poststudy (demographics, object memory test and other) and spatial test (needs to be converted from image to a python-readable graph format) data will be analysed next.
+
+Console logs from running _Analyser python script:
+
+Means for ['path', 'total_time'] = 241.0 625.0
+P-value for ['path', 'total_time'] = 0.001
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Means for ['path', 'visited'] = 18.3 19.1
+P-value for ['path', 'visited'] = 0.164
+Means for ['path', 'total_room_visits'] = 43.6 98.1
+P-value for ['path', 'total_room_visits'] = 0.008
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Interpretation of above console logs:
+
+With statistical significance, users in the experimental condition took ~2.6 times longer to traverse the museum on average than those in the control condition. This could indicate people in the portals condition were more willing to stay in the museum, but could also indicate that participants found it harder to find the end room.
+
+On average, the number of rooms visited atleast once was higher (+1 room visited) for the experimental condition. However, this was insignificant.
+
+With statistical significance, users in the experimental condition visited or revisited rooms ~2.25 times more often on average than those in the control condition. This indicates that people in the portals condition got lost within the museum more often, as they revisited previous rooms instead of navigating to new rooms to find the end room.
