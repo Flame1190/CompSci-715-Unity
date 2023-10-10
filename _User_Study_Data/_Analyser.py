@@ -44,7 +44,13 @@ def in_room(x, z, rooms_info, portals = False):
             room_z *= portal_mutlipler
 
         if abs(x - room_x) < 3/2 and abs(z - room_z) < 6/2:
+
+            # Introduce special case to handle "Recording start bounds" inconsistencies
+            if not portals and room_name == "Start" and z > 2.5:
+                return "Dinosaur"
+            
             return room_name
+        
     print("ERROR: Player not in any room bounds at x=" + str(x) + ", z=" + str(z))
     return ""
 
