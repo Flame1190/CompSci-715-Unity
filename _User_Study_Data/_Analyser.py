@@ -72,7 +72,7 @@ class UserInfo:
 
         self.data["poststudy"] = {}
 
-    def infer_path_info(self, raw_data, rooms_info):
+    def infer_path_info(self, raw_data, rooms_info, portals):
         self.data["path"]["visited"] = {}
         self.data["path"]["unvisited"] = {}
 
@@ -91,9 +91,7 @@ class UserInfo:
             position = (float(line_info[1]), float(line_info[2]), float(line_info[3]))
             rotation = (float(line_info[4]), float(line_info[5]), float(line_info[6]), float(line_info[7]))
 
-            portal_condition = position[2] > 500
-
-            current_room = in_room(position[0], position[2], rooms_info, portal_condition)
+            current_room = in_room(position[0], position[2], rooms_info, portals)
 
             if current_room not in self.data["path"]["visited"]:
                 self.data["path"]["visited"][current_room] = {}
@@ -138,7 +136,8 @@ def get_user_infos(count, rooms_info):
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
-        user_infos[i].infer_path_info(raw_data, rooms_info)
+        portals = (i % 2) == 1
+        user_infos[i].infer_path_info(raw_data, rooms_info, portals)
 
         # Extract prestudy info from qualtrics data (.csv)
         # ...
@@ -154,7 +153,7 @@ def get_user_infos(count, rooms_info):
 
 def main():
     rooms_info = get_rooms_info()
-    user_infos = get_user_infos(1, rooms_info)
+    user_infos = get_user_infos(19, rooms_info)
 
     print(user_infos[1].data)
 
