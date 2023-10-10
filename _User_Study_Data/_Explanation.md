@@ -1,10 +1,13 @@
 Data Explanation:
 
-Each of the .dat and .txt files is a data file relating to a particular participant's user study. The number in these files refer to a participant's research ID.
-The .dat file type is an encoded save file that the SaveAndLoad script in this Unity project can directly read and write to as a custom class (LogData class).
-The .txt file type displays information from the LogData class in a readable text format. This .txt file is automatically generated when a LogData class is saved in Unity via the SaveAndLoad script.
+Participant data with an even ID value experienced the control condition.
+Participant data with an odd ID value experienced the experimental (portals) condition. 
 
-The .txt files contain data on various lines. The following explains the comma-seperated information stored per line:
+Each of the ".dat" and ".txt" files is a data file relating to a particular participant's user study. The number in these files refer to a participant's research ID.
+The ".dat" file type is an encoded save file that the SaveAndLoad script in this Unity project can directly read and write to as a custom class (LogData class).
+The ".txt" file type displays information from the LogData class in a readable text format. This ".txt" file is automatically generated when a LogData class is saved in Unity via the SaveAndLoad script.
+
+The ".txt" files contain data on various lines. The following explains the comma-seperated information stored per line:
 - Time index in seconds since the start of recording (as float),
 - X-axis information of the head's position at the given time index (as float, originated from Vector3),
 - Y-axis information of the head's position at the given time index (as float, originated from Vector3),
@@ -55,4 +58,4 @@ User-position-x check: 1.05 is within ±3 of 0
 User-position-z check: 11.72 is within ±6 of 12
 We can infer that the user was in the Egypt room 27.53 seconds into the experiment.
 
-Note that while rotation (Quaternion) data is available, it may be complicated to manipulate for meaningful inferences. 
+Note that while rotation (Quaternion) data is available, it may be complicated to manipulate for meaningful inferences. Also note that every second room in the portal condition (i.e when the sum of a room's x & y/z grid position is odd) was rotated by 180 degrees. Keep this in mind if you want to detect whether someone looked in a specific direction (e.g. right, towards the dinosaur) relative to the room.
