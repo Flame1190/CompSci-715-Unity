@@ -1,9 +1,10 @@
 import math
 import numpy as np
+from scipy.stats import mannwhitneyu
 
 ###########################################################################
 
-#region Extracting Data
+#region Helper Functions
 
 def get_rooms_info():
     rooms = {}
@@ -62,6 +63,15 @@ def angle(q1, q2, degrees = True):
 
     return angle_degrees if degrees else angle_radians
 
+def round_sig(x, sig=3):
+    return round(x, sig-int(math.floor(math.log10(abs(x))))-1)
+
+#endregion
+
+###########################################################################
+
+#region Extracting Data
+
 class UserInfo:
     def __init__(self):
         self.data = {}
@@ -69,12 +79,13 @@ class UserInfo:
         self.data["prestudy"] = {}
 
         self.data["path"] = {}
+        
+        self.data["prestudy"] = {}
 
-        self.data["poststudy"] = {}
+        self.data["spatial_test"] = {}
 
     def infer_path_info(self, raw_data, rooms_info, portals):
         self.data["path"]["visited"] = {}
-        self.data["path"]["unvisited"] = {}
 
         raw_lines = raw_data.split("\n")
 
@@ -116,6 +127,7 @@ class UserInfo:
             last_rotation = rotation
             last_room = current_room
 
+        self.data["path"]["total_room_visits"] = room_visits
         self.data["path"]["total_time"] = last_time
 
 
@@ -145,6 +157,9 @@ def get_user_infos(count, rooms_info):
         # Extract poststudy info from qualtrics data (.csv)
         # ...
 
+        # Extract spatial test info from ?image? data (images need to be converted to readable graphs first)
+        # ...
+
     return user_infos
     
 #endregion
@@ -155,9 +170,53 @@ def main():
     rooms_info = get_rooms_info()
     user_infos = get_user_infos(19, rooms_info)
 
-    print(user_infos[1].data)
+    print() #
 
+    print(user_infos[0].data)
+
+    print() #
+
+    compare_conditions(["path","total_time"], user_infos)
+    compare_conditions(["path","visited"], user_infos)
+    compare_conditions(["path","total_room_visits"], user_infos)
+
+    print() #
     print("Done")
+
+###########################################################################
+
+#region Analysing Data
+
+def compare_conditions(variable, user_infos):
+
+    list0 = []
+    list1 = []
+
+    for id in sorted(list(user_infos.keys())):
+        data = user_infos[id].data
+        target_list = list0 if (id % 2) == 0 else list1
+
+        target_value = data
+        for value_type in variable:
+            target_value = target_value[value_type]
+
+        if isinstance(target_value, list) or isinstance(target_value, dict):
+            target_value = len(target_value)
+
+        target_list.append(target_value)
+
+    mean0 = np.mean(list0)
+    mean1 = np.mean(list1)
+
+    # Note: Currently only using wilcoxon-test, this can be changed to t-test for parametric data
+    statistic, wilcoxon_p_value = mannwhitneyu(list0, list1)
+
+    print("Means for", variable, "=", round_sig(mean0), round_sig(mean1))
+    print("P-value for", variable, "=", round(wilcoxon_p_value, 3))
+    if wilcoxon_p_value < 0.05:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+#endregion
 
 ###########################################################################
 
