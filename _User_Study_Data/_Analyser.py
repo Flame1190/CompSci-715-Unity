@@ -1,6 +1,9 @@
 import math
 import numpy as np
+import pandas as pd
 from scipy.stats import mannwhitneyu
+from collections import Counter
+from scipy.stats import chi2_contingency
 
 ###########################################################################
 
@@ -46,7 +49,7 @@ def in_room(x, z, rooms_info, portals = False):
         if abs(x - room_x) < 3/2 and abs(z - room_z) < 6/2:
 
             # Introduce special case to handle "Recording start bounds" inconsistencies
-            if not portals and room_name == "Start" and z > 2.5:
+            if not portals and room_name == "Start" and z > 2.8:
                 return "Dinosaur"
             
             return room_name
@@ -86,7 +89,7 @@ class UserInfo:
 
         self.data["path"] = {}
         
-        self.data["prestudy"] = {}
+        self.data["poststudy"] = {}
 
         self.data["spatial_test"] = {}
 
@@ -100,6 +103,9 @@ class UserInfo:
         last_rotation = ()
         last_room = ""
         room_visits = 0
+
+        total_distance = 0
+        total_turn = 0
 
         for i in range(len(raw_lines) - 1):
             line_info = raw_lines[i].split(",")
@@ -124,9 +130,15 @@ class UserInfo:
                 self.data["path"]["visited"][current_room]["sequence"].append(room_visits)
                 room_visits += 1
             elif i > 0:
+                distance = math.dist(position, last_position)
+                turn = angle(rotation, last_rotation)
+
                 self.data["path"]["visited"][current_room]["total_time"] += time - last_time
-                self.data["path"]["visited"][current_room]["total_distance"] += math.dist(position, last_position)
-                self.data["path"]["visited"][current_room]["total_turn"] += angle(rotation, last_rotation)
+                self.data["path"]["visited"][current_room]["total_distance"] += distance
+                self.data["path"]["visited"][current_room]["total_turn"] += turn
+
+                total_distance += distance
+                total_turn += turn
 
             last_time = time
             last_position = position
@@ -135,6 +147,8 @@ class UserInfo:
 
         self.data["path"]["total_room_visits"] = room_visits
         self.data["path"]["total_time"] = last_time
+        self.data["path"]["distance_per_time"] = total_distance / last_time
+        self.data["path"]["turn_per_time"] = total_turn / last_time
 
 
 def get_user_infos(count, rooms_info):
@@ -157,14 +171,95 @@ def get_user_infos(count, rooms_info):
         portals = (i % 2) == 1
         user_infos[i].infer_path_info(raw_data, rooms_info, portals)
 
-        # Extract prestudy info from qualtrics data (.csv)
-        # ...
-
-        # Extract poststudy info from qualtrics data (.csv)
-        # ...
-
         # Extract spatial test info from ?image? data (images need to be converted to readable graphs first)
         # ...
+
+    # Extract prestudy info from qualtrics data (.csv)
+        
+    prestudy_file = 'prestudy.csv'
+    prestudy_df = pd.read_csv(prestudy_file)
+
+    prestudy_id_values = prestudy_df.iloc[:, 0]
+    baseline_memory_values = prestudy_df.iloc[:, 2]
+
+    for index, value in prestudy_id_values.items():
+        if index < 2:
+            continue
+
+        id = int(value)
+
+        user_infos[id].data["prestudy"]["baseline"] = int(baseline_memory_values[index])
+
+    # Extract poststudy info from qualtrics data (.csv)
+    
+    poststudy_file = 'poststudy.csv'
+    poststudy_df = pd.read_csv(poststudy_file)
+
+    poststudy_id_values = poststudy_df.iloc[:, 0]
+    gender_values = poststudy_df.iloc[:, 1]
+    age_values = poststudy_df.iloc[:, 3]
+    xr_xp_values = poststudy_df.iloc[:, 6]
+    joystick_xp_values = poststudy_df.iloc[:, 7]
+    enjoy_walk_values = poststudy_df.iloc[:, 8]
+    enjoy_museum_values = poststudy_df.iloc[:, 9]
+    play_games_values = poststudy_df.iloc[:, 10]
+
+    objects_values_list = [poststudy_df.iloc[:, 17 + (i * 2)] for i in range(6)]
+    object_surety_values_list = [poststudy_df.iloc[:, 18 + (i * 2)] for i in range(6)]
+    distractors_values_list = [poststudy_df.iloc[:, 29 + (i * 2)] for i in range(12)]
+    distractor_surety_values_list = [poststudy_df.iloc[:, 30 + (i * 2)] for i in range(12)]
+    other_objects_values = poststudy_df.iloc[:, 53]
+
+    easy_navigate_values = poststudy_df.iloc[:, 54]
+    easy_object_test_values = poststudy_df.iloc[:, 55]
+    easy_spatial_test_values = poststudy_df.iloc[:, 56]
+
+    for index, value in poststudy_id_values.items():
+        if index < 2:
+            continue
+
+        id = int(value)
+
+        user_infos[id].data["poststudy"]["gender"] = gender_values[index]
+        user_infos[id].data["poststudy"]["age"] = int(age_values[index])
+        user_infos[id].data["poststudy"]["xr_xp"] = xr_xp_values[index]
+        user_infos[id].data["poststudy"]["joystick_xp"] = joystick_xp_values[index]
+        user_infos[id].data["poststudy"]["enjoy_walk"] = -int(enjoy_walk_values[index])
+        user_infos[id].data["poststudy"]["enjoy_museum"] = -int(enjoy_museum_values[index])
+        user_infos[id].data["poststudy"]["play_games"] = play_games_values[index]
+
+        objects_seen = 0
+        objects_seen_level = 0
+        objects_confidence = 0
+        for i in range(6):
+            if objects_values_list[i][index] == "Yes":
+                objects_seen += 1
+                objects_seen_level += -int(object_surety_values_list[i][index]) - 1
+            else:
+                objects_seen_level += int(object_surety_values_list[i][index])
+            objects_confidence += -int(object_surety_values_list[i][index])
+        distractors_seen = 0
+        distractors_seen_level = 0
+        distractors_confidence = 0
+        for i in range(12):
+            if distractors_values_list[i][index] == "Yes":
+                distractors_seen += 1
+                distractors_seen_level += -int(distractor_surety_values_list[i][index]) - 1
+            else:
+                distractors_seen_level += int(distractor_surety_values_list[i][index])
+            distractors_confidence += -int(distractor_surety_values_list[i][index])
+
+        user_infos[id].data["poststudy"]["objects_seen"] = objects_seen
+        user_infos[id].data["poststudy"]["objects_seen_level"] = objects_seen_level
+        user_infos[id].data["poststudy"]["objects_confidence"] = objects_confidence
+        user_infos[id].data["poststudy"]["distractors_seen"] = distractors_seen
+        user_infos[id].data["poststudy"]["distractors_seen_level"] = distractors_seen_level
+        user_infos[id].data["poststudy"]["distractors_confidence"] = distractors_confidence
+        user_infos[id].data["poststudy"]["other_objects_length"] = len(other_objects_values[index])
+
+        user_infos[id].data["poststudy"]["easy_navigate"] = -int(easy_navigate_values[index])
+        user_infos[id].data["poststudy"]["easy_object_test"] = -int(easy_object_test_values[index])
+        user_infos[id].data["poststudy"]["easy_spatial_test"] = -int(easy_spatial_test_values[index])
 
     return user_infos
     
@@ -174,7 +269,7 @@ def get_user_infos(count, rooms_info):
 
 def main():
     rooms_info = get_rooms_info()
-    user_infos = get_user_infos(19, rooms_info)
+    user_infos = get_user_infos(32, rooms_info)
 
     print() #
 
@@ -182,9 +277,33 @@ def main():
 
     print() #
 
+    compare_conditions(["prestudy","baseline"], user_infos)
+
     compare_conditions(["path","total_time"], user_infos)
     compare_conditions(["path","visited"], user_infos)
     compare_conditions(["path","total_room_visits"], user_infos)
+    compare_conditions(["path","distance_per_time"], user_infos)
+    compare_conditions(["path","turn_per_time"], user_infos)
+
+    compare_conditions(["poststudy","gender"], user_infos)
+    compare_conditions(["poststudy","age"], user_infos)
+    compare_conditions(["poststudy","xr_xp"], user_infos)
+    compare_conditions(["poststudy","joystick_xp"], user_infos)
+    compare_conditions(["poststudy","enjoy_walk"], user_infos)
+    compare_conditions(["poststudy","enjoy_museum"], user_infos)
+    compare_conditions(["poststudy","play_games"], user_infos)
+
+    compare_conditions(["poststudy","objects_seen"], user_infos)
+    compare_conditions(["poststudy","objects_seen_level"], user_infos)
+    compare_conditions(["poststudy","objects_confidence"], user_infos)
+    compare_conditions(["poststudy","distractors_seen"], user_infos)
+    compare_conditions(["poststudy","distractors_seen_level"], user_infos)
+    compare_conditions(["poststudy","distractors_confidence"], user_infos)
+    compare_conditions(["poststudy","other_objects_length"], user_infos)
+
+    compare_conditions(["poststudy","easy_navigate"], user_infos)
+    compare_conditions(["poststudy","easy_object_test"], user_infos)
+    compare_conditions(["poststudy","easy_spatial_test"], user_infos)
 
     print() #
     print("Done")
@@ -198,6 +317,8 @@ def compare_conditions(variable, user_infos):
     list0 = []
     list1 = []
 
+    ordered = True
+
     for id in sorted(list(user_infos.keys())):
         data = user_infos[id].data
         target_list = list0 if (id % 2) == 0 else list1
@@ -206,21 +327,50 @@ def compare_conditions(variable, user_infos):
         for value_type in variable:
             target_value = target_value[value_type]
 
+        if ordered and isinstance(target_value, str):
+            ordered = False
+
         if isinstance(target_value, list) or isinstance(target_value, dict):
             target_value = len(target_value)
 
         target_list.append(target_value)
 
-    mean0 = np.mean(list0)
-    mean1 = np.mean(list1)
+    print("#")
 
-    # Note: Currently only using wilcoxon-test, this can be changed to t-test for parametric data
-    statistic, wilcoxon_p_value = mannwhitneyu(list0, list1)
+    if ordered:
+        print(variable, "(Ordered):")
+        
+        mean0 = np.mean(list0)
+        mean1 = np.mean(list1)
 
-    print("Means for", variable, "=", round_sig(mean0), round_sig(mean1))
-    print("P-value for", variable, "=", round(wilcoxon_p_value, 3))
-    if wilcoxon_p_value < 0.05:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # Note: Currently only using wilcoxon-test, this can be changed to t-test for parametric data
+        statistic, wilcoxon_p_value = mannwhitneyu(list0, list1)
+
+        print("C Mean =", round_sig(mean0))
+        print("E Mean =", round_sig(mean1))
+        print("P-value =", round(wilcoxon_p_value, 3))
+        if wilcoxon_p_value < 0.05:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    else:
+        print(variable, "(Unordered):")
+        
+        count_list0 = dict(Counter(list0))
+        count_list1 = dict(Counter(list1))
+        sorted_count_list0 = dict(sorted(count_list0.items()))
+        sorted_count_list1 = dict(sorted(count_list1.items()))
+
+        observed = []
+        for category in set(list0 + list1):
+            observed.append([list0.count(category), list1.count(category)])
+
+        chi2, chi_p_value, _, _ = chi2_contingency(observed)
+
+        print("C =", sorted_count_list0)
+        print("E =", sorted_count_list1)
+        print("P-value =", chi_p_value)
+
+        if chi_p_value < 0.05:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 #endregion
 

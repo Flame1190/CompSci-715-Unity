@@ -1,0 +1,35 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,Research ID,Motion Sickness_1,Benchmark Memory
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,What is your research ID? (Ask one of the researchers if unsure),"Are you prone to motion sickness (e.g. from driving in a vehicle or wearing a virtual reality device)? If so, indicate the severity on the following scale:",What level did you reach in the benchmark memory test?
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID2_TEXT""}","{""ImportId"":""QID14_1""}","{""ImportId"":""QID12_TEXT""}"
+2023-10-08 18:05:55,2023-10-08 18:07:46,IP Address,130.216.38.177,100,111,True,2023-10-08 18:07:47,R_1feYHV6kdFCTSs1,,,,,-36.8506,174.7679,anonymous,EN,0,,7
+2023-10-08 18:01:40,2023-10-08 18:08:59,IP Address,130.216.38.56,100,438,True,2023-10-08 18:08:59,R_3fDhaclUNMKW4un,,,,,-36.8506,174.7679,anonymous,EN,1,5,7
+2023-10-08 18:25:21,2023-10-08 18:29:09,IP Address,130.216.38.56,100,228,True,2023-10-08 18:29:10,R_W86lTV8IzVN1GSt,,,,,-36.8506,174.7679,anonymous,EN,3,3,12
+2023-10-08 18:38:46,2023-10-08 18:40:37,IP Address,130.216.38.177,100,111,True,2023-10-08 18:40:38,R_28BcrqHzXRDki3g,,,,,-36.8506,174.7679,anonymous,EN,2,,8
+2023-10-08 18:36:35,2023-10-08 18:59:40,IP Address,130.216.38.56,100,1385,True,2023-10-08 18:59:41,R_3Rz4OYViuNRN3ma,,,,,-36.8506,174.7679,anonymous,EN,5,,7
+2023-10-08 19:07:17,2023-10-08 19:33:04,IP Address,130.216.38.177,100,1547,True,2023-10-08 19:33:05,R_1CHd6AkBgiwQMTG,,,,,-36.8506,174.7679,anonymous,EN,4,2,14
+2023-10-08 20:07:06,2023-10-08 20:10:12,IP Address,130.216.38.56,100,185,True,2023-10-08 20:10:12,R_12Qo2KxUYCGfwY9,,,,,-36.8506,174.7679,anonymous,EN,6,,8
+2023-10-08 20:28:31,2023-10-08 20:30:11,IP Address,130.216.38.56,100,100,True,2023-10-08 20:30:12,R_2OYXOQapmoOaoJW,,,,,-36.8506,174.7679,anonymous,EN,7,2,5
+2023-10-09 15:56:10,2023-10-09 15:59:06,IP Address,130.216.38.177,100,176,True,2023-10-09 15:59:07,R_1obWs2ofbUezd3w,,,,,-36.8506,174.7679,anonymous,EN,8,1,11
+2023-10-09 16:03:14,2023-10-09 16:10:14,IP Address,130.216.38.56,100,419,True,2023-10-09 16:10:14,R_2Ui2QIliFY6kSAe,,,,,-36.8506,174.7679,anonymous,EN,9,2,12
+2023-10-09 18:03:34,2023-10-09 18:14:42,IP Address,130.216.38.177,100,668,True,2023-10-09 18:14:43,R_A5lVMzbRIpi2VWx,,,,,-36.8506,174.7679,anonymous,EN,10,,7
+2023-10-09 18:07:24,2023-10-09 18:15:30,IP Address,130.216.38.56,100,485,True,2023-10-09 18:15:30,R_3MJWIBd6HcPml1D,,,,,-36.8506,174.7679,anonymous,EN,11,3,9
+2023-10-09 18:49:37,2023-10-09 18:52:44,IP Address,130.216.38.56,100,186,True,2023-10-09 18:52:45,R_3RlvcSgehRZdyJc,,,,,-36.8506,174.7679,anonymous,EN,13,2,7
+2023-10-09 18:49:53,2023-10-09 18:56:49,IP Address,130.216.38.177,100,416,True,2023-10-09 18:56:50,R_3F3xKO77WVp3WK5,,,,,-36.8506,174.7679,anonymous,EN,12,2,7
+2023-10-09 19:13:45,2023-10-09 19:16:21,IP Address,130.216.38.56,100,156,True,2023-10-09 19:16:22,R_3GrZEnae2XiYOev,,,,,-36.8506,174.7679,anonymous,EN,15,1,9
+2023-10-09 19:17:11,2023-10-09 19:20:04,IP Address,130.216.38.56,100,172,True,2023-10-09 19:20:05,R_2zl0LpGav0qDVKV,,,,,-36.8506,174.7679,anonymous,EN,14,2,6
+2023-10-09 19:23:16,2023-10-09 19:33:25,IP Address,130.216.38.56,100,608,True,2023-10-09 19:33:25,R_0euJxxxfpVVurIJ,,,,,-36.8506,174.7679,anonymous,EN,17,2,11
+2023-10-09 19:33:33,2023-10-09 19:37:10,IP Address,130.216.38.56,100,216,True,2023-10-09 19:37:11,R_sGdjaFLex5pfTEZ,,,,,-36.8506,174.7679,anonymous,EN,16,3,6
+2023-10-09 20:15:07,2023-10-09 20:18:13,IP Address,130.216.38.56,100,185,True,2023-10-09 20:18:14,R_3ktRhKGY4m1Qox8,,,,,-36.8506,174.7679,anonymous,EN,18,3,4
+2023-10-10 16:58:55,2023-10-10 19:12:29,IP Address,130.216.38.177,100,8014,True,2023-10-10 19:12:29,R_1r9cvrPfbTQrrga,,,,,-36.8506,174.7679,anonymous,EN,20,,13
+2023-10-10 19:14:40,2023-10-10 19:17:24,IP Address,130.216.38.56,100,163,True,2023-10-10 19:17:24,R_1E1ey3eIfuHBeua,,,,,-36.8506,174.7679,anonymous,EN,19,2,9
+2023-10-10 20:14:37,2023-10-10 20:34:37,IP Address,130.216.38.56,100,1200,True,2023-10-10 20:34:38,R_2dmC3dgf2BjoAYS,,,,,-36.8506,174.7679,anonymous,EN,21,2,13
+2023-10-11 15:00:35,2023-10-11 15:21:55,IP Address,130.216.38.177,100,1280,True,2023-10-11 15:21:56,R_1i9Es2KWovZY432,,,,,-36.8506,174.7679,anonymous,EN,22,3,13
+2023-10-11 15:03:36,2023-10-11 17:04:57,IP Address,130.216.38.56,100,7281,True,2023-10-11 17:04:58,R_2fBtFwduB9CtV85,,,,,-36.8506,174.7679,anonymous,EN,23,2,10
+2023-10-11 17:02:32,2023-10-11 17:04:59,IP Address,130.216.38.177,100,146,True,2023-10-11 17:04:59,R_reSw5Pud93LJDVL,,,,,-36.8506,174.7679,anonymous,EN,24,,9
+2023-10-11 17:41:33,2023-10-11 18:05:17,IP Address,130.216.38.56,100,1424,True,2023-10-11 18:05:18,R_2dFIPMo0kbVVfxp,,,,,-36.8506,174.7679,anonymous,EN,25,2,8
+2023-10-11 18:49:39,2023-10-11 18:52:59,IP Address,49.224.243.101,100,199,True,2023-10-11 18:53:00,R_2c00uIMUdmvSUrT,,,,,-36.8506,174.7679,anonymous,EN,26,,12
+2023-10-12 17:07:39,2023-10-12 17:09:27,IP Address,130.216.38.56,100,108,True,2023-10-12 17:09:28,R_2WUAQSxVHjLdrMT,,,,,-36.8506,174.7679,anonymous,EN,27,,8
+2023-10-12 17:02:36,2023-10-12 17:32:03,IP Address,130.216.38.177,100,1767,True,2023-10-12 17:32:03,R_1dzOFUOKXO1ZaEi,,,,,-36.8506,174.7679,anonymous,EN,28,3,12
+2023-10-12 19:09:44,2023-10-12 19:11:56,IP Address,130.216.38.56,100,131,True,2023-10-12 19:11:57,R_2uCeHtjshCpJ6fv,,,,,-36.8506,174.7679,anonymous,EN,29,1,8
+2023-10-12 19:49:55,2023-10-12 19:52:01,IP Address,130.216.38.177,100,126,True,2023-10-12 19:52:02,R_24c3UgQ1EvzD7CS,,,,,-36.8506,174.7679,anonymous,EN,30,,8
+2023-10-13 00:35:20,2023-10-13 00:38:20,IP Address,130.216.38.56,100,179,True,2023-10-13 00:38:21,R_1FJPsPZwuZ4eye7,,,,,-36.8506,174.7679,anonymous,EN,31,3,8
