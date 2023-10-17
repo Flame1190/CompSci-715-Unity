@@ -1,0 +1,13 @@
+Start=Dinosaur
+Dinosaur=Egypt
+Egypt=Cherry Blossom
+Cherry Blossom=Mammoth
+Mammoth=Signs
+Signs=Paintings,Clocks
+Clocks=Pond
+Pond=Bird Nest
+Bird Nest=Beach
+Beach=Face
+Face=End,Aquarium
+Paintings=Pots,Aquarium
+Aquarium=Ice Cube

@@ -1,0 +1,15 @@
+Start=Cherry Blossom
+Cherry Blossom=Dinosaur,Signs,Egypt
+Egypt=Dinosaur,Signs
+Dinosaur=Egypt,Signs
+Signs=Paintings,Clocks
+Clocks=Mammoth
+Mammoth=Volcano
+Volcano=Sundial
+Sundial=Beach
+Beach=End
+Paintings=Face
+Face=Bird Nest
+Bird Nest=Statues
+Statues=Pots
+Pots=End

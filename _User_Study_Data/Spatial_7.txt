@@ -1,0 +1,14 @@
+Start=Dinosaur
+Dinosaur=Clocks
+Clocks=Signs
+Signs=Face,Volcano,Aquarium
+Aquarium=Paintings
+Paintings=Cherry Blossom
+Face=Egypt
+Volcano=Statues,Mammoth
+Mammoth=Bird Nest,Pond
+Bird Nest=Giant Ladybug
+Giant Ladybug=Ice Cube
+Pond=Sundial
+Sundial=Pots,Beach
+Pots=End

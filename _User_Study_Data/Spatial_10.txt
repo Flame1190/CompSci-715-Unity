@@ -1,0 +1,8 @@
+Start=Egypt,Signs
+Signs=Clocks,Statues
+Clocks=Volcano
+Statues=Cherry Blossom
+Bird Nest=Aquarium
+Paintings=Pond,Face
+Face=Ice Cube,End
+Mammoth=Sundial

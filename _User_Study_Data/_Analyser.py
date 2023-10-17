@@ -1,13 +1,50 @@
 import math
 import numpy as np
 import pandas as pd
-from scipy.stats import mannwhitneyu
+from scipy.stats import ttest_ind, mannwhitneyu
 from collections import Counter
 from scipy.stats import chi2_contingency
+import networkx as nx
+import matplotlib.pyplot as plt
 
 ###########################################################################
 
 #region Helper Functions
+
+def get_graph(id, rooms_info):
+    raw_spatial_data = ""
+    spatial_data_filename = 'Spatial_' + str(id) + '.txt'
+    try:
+        with open(spatial_data_filename, 'r') as file:
+            raw_spatial_data = file.read()
+    except FileNotFoundError:
+        print(f"File '{raw_spatial_data}' not found.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+    graph = nx.Graph()
+    for room_name in list(rooms_info.keys()):
+        graph.add_node(room_name)
+
+    raw_lines = raw_spatial_data.split("\n")
+
+    for raw_line in raw_lines:
+        if raw_line[-1] == "=":
+            continue
+
+        line_info = raw_line.split("=")
+        left_room = line_info[0]
+        right_rooms = line_info[1].split(",")
+
+        for right_room in right_rooms:
+            graph.add_edge(left_room, right_room)
+
+    #pos = nx.spring_layout(graph)
+    #nx.draw(graph, pos, with_labels=True, node_size=3000, node_color="skyblue", connectionstyle="arc3,rad=0.2")
+    #plt.title("Graph")
+    #plt.show()
+
+    return graph
 
 def get_rooms_info():
     rooms = {}
@@ -73,7 +110,7 @@ def angle(q1, q2, degrees = True):
     return angle_degrees if degrees else angle_radians
 
 def round_sig(x, sig=3):
-    return round(x, sig-int(math.floor(math.log10(abs(x))))-1)
+    return round(x, sig-int(math.floor(math.log10(abs(x))))-1) if x != 0 else 0
 
 #endregion
 
@@ -91,7 +128,7 @@ class UserInfo:
         
         self.data["poststudy"] = {}
 
-        self.data["spatial_test"] = {}
+        self.data["spatial"] = {}
 
     def infer_path_info(self, raw_data, rooms_info, portals):
         self.data["path"]["visited"] = {}
@@ -150,29 +187,107 @@ class UserInfo:
         self.data["path"]["distance_per_time"] = total_distance / last_time
         self.data["path"]["turn_per_time"] = total_turn / last_time
 
+    def infer_spatial_info(self, id_graph, truth_graph):
+        self.data["spatial"]["correct_edges"] = 0
+        self.data["spatial"]["incorrect_edges"] = 0
+        self.data["spatial"]["missed_edges"] = 0
+        self.data["spatial"]["visited_correct_edges"] = 0
+        self.data["spatial"]["visited_incorrect_edges"] = 0
+        self.data["spatial"]["visited_missed_edges"] = 0
+        self.data["spatial"]["both_visited_correct_edges"] = 0
+        self.data["spatial"]["both_visited_incorrect_edges"] = 0
+        self.data["spatial"]["both_visited_missed_edges"] = 0
+
+        for true_edge in truth_graph.edges():
+            true_room_left, true_room_right = true_edge
+            visited = 0
+            if true_room_left in list(self.data["path"]["visited"].keys()):
+                visited += 1
+            if true_room_right in list(self.data["path"]["visited"].keys()):
+                visited += 1
+
+            if true_edge in id_graph.edges():
+                self.data["spatial"]["correct_edges"] += 1
+                if visited >= 1:
+                    self.data["spatial"]["visited_correct_edges"] += 1
+                    if visited >= 2:
+                        self.data["spatial"]["both_visited_correct_edges"] += 1
+            else:
+                self.data["spatial"]["missed_edges"] += 1
+                if visited >= 1:
+                    self.data["spatial"]["visited_missed_edges"] += 1
+                    if visited >= 2:
+                        self.data["spatial"]["both_visited_missed_edges"] += 1
+
+        for id_edge in id_graph.edges():
+            id_room_left, id_room_right = id_edge
+            visited = 0
+            if id_room_left in list(self.data["path"]["visited"].keys()):
+                visited += 1
+            if id_room_right in list(self.data["path"]["visited"].keys()):
+                visited += 1
+
+            if not id_edge in truth_graph.edges():
+                self.data["spatial"]["incorrect_edges"] += 1
+                if visited >= 1:
+                    self.data["spatial"]["visited_incorrect_edges"] += 1
+                    if visited >= 2:
+                        self.data["spatial"]["both_visited_incorrect_edges"] += 1
+
+        self.data["spatial"]["correct_degrees"] = 0
+        self.data["spatial"]["incorrect_degrees"] = 0
+        self.data["spatial"]["total_degree_offset"] = 0
+        self.data["spatial"]["total_degree_difference"] = 0
+        self.data["spatial"]["visited_correct_degrees"] = 0
+        self.data["spatial"]["visited_incorrect_degrees"] = 0
+        self.data["spatial"]["visited_total_degree_offset"] = 0
+        self.data["spatial"]["visited_total_degree_difference"] = 0
+
+        for node in truth_graph.nodes():
+            visited = node in list(self.data["path"]["visited"].keys())
+            node_offset = id_graph.degree(node) - truth_graph.degree(node)
+
+            if node_offset == 0:
+                self.data["spatial"]["correct_degrees"] += 1
+                if visited:
+                    self.data["spatial"]["visited_correct_degrees"] += 1
+            else:
+                self.data["spatial"]["incorrect_degrees"] += 1
+                if visited:
+                    self.data["spatial"]["visited_incorrect_degrees"] += 1
+
+            self.data["spatial"]["total_degree_offset"] += node_offset
+            self.data["spatial"]["total_degree_difference"] += abs(node_offset)
+            if visited:
+                self.data["spatial"]["visited_total_degree_offset"] += node_offset
+                self.data["spatial"]["visited_total_degree_difference"] += abs(node_offset)
+
 
 def get_user_infos(count, rooms_info):
 
+    truth_graph = get_graph("truth", rooms_info)
+
     user_infos = {}
-    for i in range(0, count):
-        user_infos[i] = UserInfo()
+    for id in range(0, count):
+        user_infos[id] = UserInfo()
 
         # Infer path info from raw game data (.txt) with rooms info
-        raw_data = ""
-        path_data_filename = str(i) + '.txt'
+        raw_game_data = ""
+        path_data_filename = str(id) + '.txt'
         try:
             with open(path_data_filename, 'r') as file:
-                raw_data = file.read()
+                raw_game_data = file.read()
         except FileNotFoundError:
             print(f"File '{path_data_filename}' not found.")
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
-        portals = (i % 2) == 1
-        user_infos[i].infer_path_info(raw_data, rooms_info, portals)
+        # Infer spatial testing info from spatial text data (.txt) and truth graph
+        id_graph = get_graph(id, rooms_info)
 
-        # Extract spatial test info from ?image? data (images need to be converted to readable graphs first)
-        # ...
+        portals = (id % 2) == 1
+        user_infos[id].infer_path_info(raw_game_data, rooms_info, portals)
+        user_infos[id].infer_spatial_info(id_graph, truth_graph)
 
     # Extract prestudy info from qualtrics data (.csv)
         
@@ -305,6 +420,25 @@ def main():
     compare_conditions(["poststudy","easy_object_test"], user_infos)
     compare_conditions(["poststudy","easy_spatial_test"], user_infos)
 
+    compare_conditions(["spatial","correct_edges"], user_infos)
+    compare_conditions(["spatial","incorrect_edges"], user_infos)
+    compare_conditions(["spatial","missed_edges"], user_infos)
+    compare_conditions(["spatial","visited_correct_edges"], user_infos)
+    compare_conditions(["spatial","visited_incorrect_edges"], user_infos)
+    compare_conditions(["spatial","visited_missed_edges"], user_infos)
+    compare_conditions(["spatial","both_visited_correct_edges"], user_infos)
+    compare_conditions(["spatial","both_visited_incorrect_edges"], user_infos)
+    compare_conditions(["spatial","both_visited_missed_edges"], user_infos)
+
+    compare_conditions(["spatial","correct_degrees"], user_infos)
+    compare_conditions(["spatial","incorrect_degrees"], user_infos)
+    compare_conditions(["spatial","total_degree_offset"], user_infos)
+    compare_conditions(["spatial","total_degree_difference"], user_infos)
+    compare_conditions(["spatial","visited_correct_degrees"], user_infos)
+    compare_conditions(["spatial","visited_incorrect_degrees"], user_infos)
+    compare_conditions(["spatial","visited_total_degree_offset"], user_infos)
+    compare_conditions(["spatial","visited_total_degree_difference"], user_infos)
+
     print() #
     print("Done")
 
@@ -343,14 +477,20 @@ def compare_conditions(variable, user_infos):
         mean0 = np.mean(list0)
         mean1 = np.mean(list1)
 
-        # Note: Currently only using wilcoxon-test, this can be changed to t-test for parametric data
+        statistic, t_test_p_value = ttest_ind(list0, list1)
         statistic, wilcoxon_p_value = mannwhitneyu(list0, list1)
 
         print("C Mean =", round_sig(mean0))
         print("E Mean =", round_sig(mean1))
-        print("P-value =", round(wilcoxon_p_value, 3))
+        print("T-test P-value =", round(t_test_p_value, 3))
+        print("Wilcoxon P-value =", round(wilcoxon_p_value, 3))
         if wilcoxon_p_value < 0.05:
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            if t_test_p_value < 0.05:
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Double Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            else:
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Wilcoxon Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        elif t_test_p_value < 0.05:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ T-test Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     else:
         print(variable, "(Unordered):")
         
@@ -367,10 +507,10 @@ def compare_conditions(variable, user_infos):
 
         print("C =", sorted_count_list0)
         print("E =", sorted_count_list1)
-        print("P-value =", chi_p_value)
+        print("Chi P-value =", chi_p_value)
 
         if chi_p_value < 0.05:
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ^ Chi Significant ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 #endregion
 

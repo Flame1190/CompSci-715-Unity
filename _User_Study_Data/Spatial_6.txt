@@ -1,0 +1,10 @@
+Start=Dinosaur
+Dinosaur=Signs
+Cherry Blossom=Signs,Beach
+Signs=Clocks,Paintings
+Beach=Egypt
+Egypt=Pots
+Pots=Bird Nest
+Bird Nest=Volcano
+Volcano=Ice Cube
+Ice Cube=End

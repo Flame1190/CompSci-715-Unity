@@ -1,0 +1,10 @@
+Start=Dinosaur
+Dinosaur=Egypt
+Egypt=Cherry Blossom,Signs
+Signs=Clocks
+Clocks=Volcano
+Volcano=Aquarium
+Aquarium=Paintings
+Paintings=Pots
+Bird Nest=Mammoth
+Mammoth=End

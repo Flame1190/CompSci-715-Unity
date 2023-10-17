@@ -1,0 +1,16 @@
+Start=Dinosaur
+Dinosaur=Egypt
+Egypt=Cherry Blossom
+Cherry Blossom=Pond
+Pond=Mammoth
+Mammoth=Bird Nest
+Bird Nest=Signs
+Signs=Volcano,Sundial
+Volcano=Giant Ladybug
+Sundial=Giant Ladybug,Face
+Giant Ladybug=Clocks
+Clocks=Face,Statues
+Statues=Paintings
+Paintings=Pots
+Pots=Aquarium
+Aquarium=Beach

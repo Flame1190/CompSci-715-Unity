@@ -1,0 +1,11 @@
+Start=Ice Cube
+Ice Cube=Start,Beach,Egypt,Signs
+Egypt=Ice Cube,Paintings
+Beach=Ice Cube,Mammoth
+Paintings=Egypt,Face
+Signs=Ice Cube,Aquarium
+Mammoth=Beach,Pond
+Face=Paintings,Aquarium
+Aquarium=Face,Signs,End,Pond
+Pond=Aquarium,Mammoth
+End=Aquarium

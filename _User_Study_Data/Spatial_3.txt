@@ -1,0 +1,14 @@
+End=Statues
+Statues=End,Beach
+Beach=Statues,Aquarium
+Aquarium=Beach,Bird Nest
+Bird Nest=Aquarium,Signs
+Signs=Bird Nest,Cherry Blossom,Face,Mammoth
+Cherry Blossom=Signs,Pots
+Mammoth=Signs
+Face=Signs,Clocks,Dinosaur
+Clocks=Face,Paintings
+Paintings=Clocks,Volcano
+Volcano=Paintings
+Dinosaur=Egypt
+Egypt=Start

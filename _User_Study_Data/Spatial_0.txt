@@ -1,0 +1,17 @@
+Start=Dinosaur
+Dinosaur=Start,Cherry Blossom
+Cherry Blossom=Egypt,Dinosaur
+Egypt=Cherry Blossom,Signs
+Signs=Egypt,Clocks
+Clocks=Signs,Volcano
+Volcano=Clocks,Giant Ladybug
+Giant Ladybug=Sundial,Volcano
+Sundial=Giant Ladybug,Ice Cube
+Ice Cube=Pond,Sundial
+Pond=Ice Cube,Statues
+Statues=Pond,Mammoth
+Mammoth=Statues,Bird Nest
+Bird Nest=Mammoth,Face
+Face=Bird Nest,Beach
+Beach=Face,End
+End=Beach

@@ -1,0 +1,14 @@
+Start=Dinosaur
+Dinosaur=Egypt
+Egypt=Cherry Blossom,Clocks,Pots
+Clocks=Signs
+Signs=Bird Nest,Paintings
+Paintings=Aquarium
+Aquarium=Ice Cube
+Bird Nest=Volcano
+Volcano=Sundial
+Sundial=Face
+Pots=Pond
+Pond=Beach
+Beach=Statues
+Statues=End

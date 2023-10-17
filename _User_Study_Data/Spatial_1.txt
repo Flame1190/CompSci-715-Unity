@@ -1,0 +1,11 @@
+Signs=Clocks
+Clocks=Signs,Volcano
+Volcano=Clocks,Sundial
+Sundial=Volcano
+Paintings=Statues
+Statues=Paintings,Bird Nest
+Bird Nest=Statues,Giant Ladybug,Face,Mammoth
+Giant Ladybug=Bird Nest
+Face=Bird Nest
+Mammoth=Bird Nest,Beach
+Beach=Mammoth
