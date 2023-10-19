@@ -298,7 +298,7 @@ def get_user_infos(count, rooms_info):
     baseline_memory_values = prestudy_df.iloc[:, 2]
 
     for index, value in prestudy_id_values.items():
-        if index < 2:
+        if index < 3:
             continue
 
         id = int(value)
@@ -330,7 +330,7 @@ def get_user_infos(count, rooms_info):
     easy_spatial_test_values = poststudy_df.iloc[:, 56]
 
     for index, value in poststudy_id_values.items():
-        if index < 2:
+        if index < 3:
             continue
 
         id = int(value)
@@ -386,11 +386,7 @@ def main():
     rooms_info = get_rooms_info()
     user_infos = get_user_infos(32, rooms_info)
 
-    print() #
-
-    print(user_infos[0].data)
-
-    print() #
+    print()
 
     compare_conditions(["prestudy","baseline"], user_infos)
 
@@ -439,7 +435,7 @@ def main():
     compare_conditions(["spatial","visited_total_degree_offset"], user_infos)
     compare_conditions(["spatial","visited_total_degree_difference"], user_infos)
 
-    print() #
+    print()
     print("Done")
 
 ###########################################################################
