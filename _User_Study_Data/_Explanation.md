@@ -1,4 +1,4 @@
-Overview Explanation:
+# Overview Explanation
 
 Participant data with an even Research ID value experienced the control condition.
 Participant data with an odd Research ID value experienced the experimental (portals) condition. 
@@ -7,7 +7,7 @@ If more explanation is needed, please email dlan133@aucklanduni.ac.nz or dominik
 
 
 
-Prestudy Explanation:
+# Prestudy Explanation
 
 The spreadsheet called "prestudy_raw.csv" contains the raw information downloaded from Qualtrics regarding the prestudy survey responses. A viewable pdf version of the prestudy survey can be found in the "Prestudy-Survey.pdf" file. The "prestudy.csv" file is a modified version of the "prestudy_raw.csv" that is read by the "_Analyser.py" script. The first row in the "prestudy.csv" contains the question identifier (used only by Qualtrics) per question. The second row contains the text prompted to the user per question. The third row contains a description (add manually) of what the values in each column represent (e.g the range of a Likert scale).
 
@@ -17,7 +17,7 @@ C: Benchmark Memory Test level.
 
 
 
-Poststudy Explanation:
+# Poststudy Explanation
 
 The spreadsheet called "poststudy_raw.csv" contains the raw information downloaded from Qualtrics regarding the poststudy survey responses. A viewable pdf version of the poststudy survey can be found in the "poststudy-Survey.pdf" file. The "poststudy.csv" file is a modified version of the "poststudy_raw.csv" that is read by the "_Analyser.py" script. The first row in the "poststudy.csv" contains the question identifier (used only by Qualtrics) per question. The second row contains the text prompted to the user per question. The third row contains a description (add manually) of what the values in each column represent (e.g the range of a Likert scale). 
 
@@ -32,7 +32,7 @@ BB: Open-ended Object Memory question.
 BC to BE: Quantitative feedback questions about the study.
 
 
-Spatial Testing Explanation:
+# Spatial Testing Explanation
 
 The "spatial_raw.zip" file contains images for each participants' spatial-test/rooms-diagram. Each of the "Spatial_#.txt" files is a data file relating to a particular participant's user study. The "Spatial_Truth.txt" file contains the ground truth of the spatial test (i.e what the museum room layout actually was).
 
@@ -50,7 +50,7 @@ Additionally, if there are no rooms to the right of the "=", no error occurs in 
 
 
 
-Game Data Explanation:
+# Game Data Explanation
 
 Each of the "#.dat" and "#.txt" files is a data file relating to a particular participant's user study. The number in these files refer to a participant's research ID.
 The ".dat" file type is an encoded save file that the SaveAndLoad script in this Unity project can directly read and write to as a custom class (LogData class).
