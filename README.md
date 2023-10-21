@@ -34,6 +34,8 @@ Participants experiencing the control condition will need the controllers to mov
 
 # Acknowledgments of used assets
 
+"PortalsVR" https://github.com/daniellochner/portals-vr
+
 "Low Poly Mammoth" (https://skfb.ly/6UUMM) by rkuhlf is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 https://blendswap.com/blend/9811
